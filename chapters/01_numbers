@@ -1,0 +1,71 @@
+-------------------------------------------------
+CHAPTER 1 - WORKING WITH NUMBERS
+-------------------------------------------------
+
+- Complex Numbers
+
+    >>> z = 2 + 3j
+
+    >>> z.real
+    2.0
+
+    >>> z.imag
+    3.0
+
+    >>> z.conjugate()
+    (2 - 3j)
+
+    >>> abs(z)    # Returns the magnitude
+    3.605551275463989
+
+
+    - The standard library 'cmath' module provides more complex number operations.
+
+
+
+- Fractions and Complex Numbers as Input
+
+    >>> a = Fraction(input('Enter a fraction: '))
+    Enter a fraction: 3/4
+
+    >>> a
+    3/4
+
+
+    >>> z = complex(input('Enter a complex number: '))
+    Enter a complex number: 2+3j
+
+    >>> z
+    (2+3j)
+
+
+
+- Formatting Floats
+
+    >>> '{0}'.format(1.2456)
+    '1.25456'
+
+    >>> '{0:.2f}'.format(.12456)
+    '1.25'
+
+
+
+- 7 SI Base Quantities
+
+    - Length (m)
+    - Mass (kg)
+    - Time (s)
+    - Electric Current (ampere)
+    - Temperature (kelvin)
+    - Luminous Intensity (candela)
+    - Amount of a Substance (mole)
+
+
+
+- Quadratic Equation Implementation
+
+    def find_roots(a, b, c):
+        D = (b*b - 4*a*c) ** 0.5
+        x1 = (-b+D) / (2*a)
+        x2 = (-b-D) / (2*a)
+        return x1, x2
