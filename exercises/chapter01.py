@@ -63,3 +63,24 @@ def celsius_to_farenheit(degrees_celsius):
 
 def farenheit_to_celsius(degrees_farenheit):
     return 5 / 9 * (degrees_farenheit - 32)
+
+
+
+# 1-4 Fraction Calculator
+#
+# Ask the user for 2 fractions and the operation they want to carry out, then return the result.
+from fractions import Fraction
+
+
+def fraction_calculator():
+    f1 = Fraction(input('Enter the first fraction: '))
+    f2 = Fraction(input('Enter the second fraction: '))
+    op = input('Enter the operation to perform (Add|Subtract|Multiply|Divide): ')
+    if op == 'Add':
+        print('Result of Addition: %s' % (f1 + f2))
+    elif op == 'Subtract':
+        print('Result of Subtraction: %s' % (f1 - f2))
+    elif op == 'Multiply':
+        print('Result of Multiplication: %s' % (f1 * f2))
+    elif op == 'Divide':
+        print('Result of Division: %s' % (f1 / f2))
