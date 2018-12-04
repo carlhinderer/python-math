@@ -28,3 +28,38 @@ def multiplication_table():
     table = [i * num for i in range(1, multiples + 1)]
     for mult in table:
         print(mult, end=' ')
+
+
+# 1-3 Enhanced Unit Converter
+#
+# Write functions to convert between units.
+#   1. For length (between km and miles)
+#   2. For mass (between kg and lbs)
+#   3. For temperature (between Celsius and Farenheit)
+
+MILES_IN_KILOMETER = 0.62137119
+KILOGRAMS_IN_POUND = 2.20462262185
+
+
+def km_to_miles(km):
+    return km * MILES_IN_KILOMETER
+
+
+def miles_to_km(miles):
+    return miles * (1 / MILES_IN_KILOMETER)
+
+
+def kg_to_lbs(kg):
+    return kg * KILOGRAMS_IN_POUND
+
+
+def lbs_to_kg(lbs):
+    return lbs * (1 / KILOGRAMS_IN_POUND)
+
+
+def celsius_to_farenheit(degrees_celsius):
+    return (9 / 5 * degrees_celsius) + 32
+
+
+def farenheit_to_celsius(degrees_farenheit):
+    return 5 / 9 * (degrees_farenheit - 32)
