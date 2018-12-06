@@ -163,3 +163,48 @@ CHAPTER 2 - VISUALIZING DATA WITH GRAPHS
 
     if __name__ == '__main__':
         generate_F_r()
+
+
+
+- Example - Plotting Projectile Motion
+
+    '''
+    Draw the trajectory of a body in projectile motion
+    '''
+
+    from matplotlib import pyplot as plt
+    import math
+
+    def draw_graph(x, y):
+        plt.plot(x, y)
+        plt.xlabel('x-coordinate')
+        plt.ylabel('y-coordinate')
+        plt.title('Projectile motion of a ball')
+
+    def frange(start, final, interval):
+        numbers = []
+        while start < final:
+            numbers.append(start)
+            start += interval
+        return numbers
+
+    # u is initial velocity, theta is angle from ground
+    def draw_trajectory(u, theta):
+        theta = math.radians(theta)
+        g = 9.8
+        flight_time = 2 * u * math.sin(theta) / g
+        intervals = frange(0, flight_time, 0.001)
+
+        x = []
+        y = []
+        for t in intervals:
+            x.append(u * math.cos(theta) * t)
+            y.append((u * math.sin(theta) * t) - (0.5 * g * t**2))
+
+        draw_graph(x, y)
+
+    if __name__ == '__main__':
+        u = 25
+        theta = 60
+        draw_trajectory(25, 60)
+        plt.show()
