@@ -71,3 +71,52 @@ CHAPTER 2 - VISUALIZING DATA WITH GRAPHS
     ylabel('Temperature')
     legend([2000, 2006, 2012])
     show()
+
+
+
+- Customizing the Axes
+
+    # Calling axis() returns the range for the x-axis and y-axis
+    from pylab import axis
+    nyc_temp = [53.9, 56.3, 56.4, 53.4, 54.5, 55.8, 56.8, 55.0, 55.3, 54.0, 56.7, 56.4, 57.3]
+    plot(nyc_temp, marker='o')
+
+    axis()
+    # Returns (0.0, 12.0, 53.0, 57.5)
+
+
+    # Change range of axis
+    # Parameters are: xmin xmax ymin ymax
+    axis(ymin=0)
+
+
+
+- pylab vs pyplot
+
+    The 'pylab' module is useful for creating plots in the IDLE shell.  The 'pyplot' module is much 
+      more efficient, and is usually used in real programs.
+
+
+
+- pyplot Example
+
+    import matplotlib.pyplot as plt
+
+    def create_graph():
+        x_numbers = [1, 2, 3]
+        y_numbers = [4, 5, 6]
+        plt.plot(x_numbers, y_numbers)
+        plt.show()
+
+    if __name__ == '__main__':
+        create_graph()
+
+
+
+- Saving a Plot
+
+    from pylab import plot, savefig
+    x = [1, 2, 3]
+    y = [4, 5, 6]
+    plot(x, y)
+    savefig('mygraph.png')
