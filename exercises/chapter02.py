@@ -52,10 +52,12 @@ def visualize_quadratic_function(a, b, c):
 
 def enhanced_projectiles():
     us, thetas = get_projectiles_from_user()
+    legend = []
     for i in range(len(us)):
         draw_trajectory(us[i], thetas[i])
         print_info(us[i], thetas[i])
-    show_graph()
+        legend.append('u: %s, theta: %s' % (us[i], thetas[i]))
+    show_graph(legend)
 
 
 def get_projectiles_from_user():
@@ -99,22 +101,27 @@ def draw_trajectory(u, theta):
 def print_info(u, theta):
     print('Results for u: %s, theta: %s' % (u, theta))
     print('Time of flight: %s s' % flight_time(u, theta))
+    print('Max Height: %s m' % max_height(u, theta))
+    print('Horizontal Range: %s m' % horizontal_range(u, theta))
 
 
 def flight_time(u, theta):
     return 2 * u * math.sin(theta) / g
 
 
-def vertical_height(u, theta): pass
+def max_height(u, theta):
+    return u**2 * (math.sin(theta))**2 / (2 * g)
 
 
-def horizontal_range(u, theta): pass
+def horizontal_range(u, theta):
+    return u**2 * math.sin(2 * theta) / g
 
 
-def show_graph():
+def show_graph(legend):
     plt.xlabel('x-coordinate')
     plt.ylabel('y-coordinate')
     plt.title('Projectile motion of a ball')
+    plt.legend(legend)
     plt.show()
 
 
