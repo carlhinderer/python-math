@@ -1,6 +1,9 @@
 # Chapter 2 Exercises
 
 import matplotlib.pyplot as plt
+import math
+
+g = 9.8
 
 # 2-1: Temperature Varying During The Day
 #
@@ -38,5 +41,82 @@ def visualize_quadratic_function(a, b, c):
     plt.show()
 
 
+# 2-3 Enhanced Projectile Trajectories
+#
+# Enhance the trajectory comparison program in a few ways:
+#
+#   1. Print the time of flight, maximum horizontal distance, and maximum vertical distance for each v0/theta pair.
+#   2. Accept any number of v0/theta pairs, entered by the user.
+#   3. Validate input and handle invalid input properly.
+
+
+def enhanced_projectiles():
+    us, thetas = get_projectiles_from_user()
+    for i in range(len(us)):
+        draw_trajectory(us[i], thetas[i])
+        print_info(us[i], thetas[i])
+    show_graph()
+
+
+def get_projectiles_from_user():
+    us = []
+    thetas = []
+    num_projectiles = int(input('How many trajectories?: '))
+    for i in range(num_projectiles):
+        u = float(input('Enter the initial velocity for trajectory %s (m/s): ' % i))
+        theta = float(input('Enter the angle of projection for trajectory %s (degrees): ' % i))
+        if valid_projectile(u, theta):
+            us.append(u)
+            theta = math.radians(theta)
+            thetas.append(theta)
+        else:
+            print('The trajectory u: %s, theta: %s is not valid.' % (u, theta))
+    return us, thetas
+
+
+def valid_projectile(u, theta):
+    return u > 0 and theta > 0 and theta < 90
+
+
+def frange(start, final, interval):
+    numbers = []
+    while start < final:
+        numbers.append(start)
+        start += interval
+    return numbers
+
+
+def draw_trajectory(u, theta):
+    intervals = frange(0, flight_time(u, theta), 0.001)
+    x = []
+    y = []
+    for t in intervals:
+        x.append(u * math.cos(theta) * t)
+        y.append((u * math.sin(theta) * t) - (0.5 * g * t**2))
+    plt.plot(x, y)
+
+
+def print_info(u, theta):
+    print('Results for u: %s, theta: %s' % (u, theta))
+    print('Time of flight: %s s' % flight_time(u, theta))
+
+
+def flight_time(u, theta):
+    return 2 * u * math.sin(theta) / g
+
+
+def vertical_height(u, theta): pass
+
+
+def horizontal_range(u, theta): pass
+
+
+def show_graph():
+    plt.xlabel('x-coordinate')
+    plt.ylabel('y-coordinate')
+    plt.title('Projectile motion of a ball')
+    plt.show()
+
+
 if __name__ == '__main__':
-    visualize_quadratic_function(1, 2, 1)
+    enhanced_projectiles()
