@@ -21,5 +21,22 @@ def plot_hourly_temperatures():
     plt.show()
 
 
+# 2-2: Visualizing Quadratic Functions
+#
+# Write a function to plot a quadratic function for x values -5 to 5.
+
+
+def visualize_quadratic_function(a, b, c):
+    x_vals = range(-5, 6)
+    y_vals = []
+    for xval in x_vals:
+        y = (a * xval**2) + (b * xval) + c
+        y_vals.append(y)
+
+    plt.plot(x_vals, y_vals)
+    plt.title('Quadratic Function Plotted')
+    plt.show()
+
+
 if __name__ == '__main__':
-    plot_hourly_temperatures()
+    visualize_quadratic_function(1, 2, 1)
