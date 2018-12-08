@@ -125,5 +125,37 @@ def show_graph(legend):
     plt.show()
 
 
+# 2-4 Visualizing Expenses
+#
+# Ask the user for a list of monthly expense categories, then display each category and the amount
+#   spend in a bar graph.
+
+def visualize_expenses():
+    categories, expenses = get_categories_from_user()
+    draw_bar_chart(categories, expenses)
+
+
+def get_categories_from_user():
+    categories = []
+    expenses = []
+    num_categories = int(input('How many expense categories?: '))
+    for i in range(num_categories):
+        category = input('What is the name of the category?: ')
+        expense = int(input('What was the amount spent?: '))
+        categories.append(category)
+        expenses.append(expense)
+    return categories, expenses
+
+
+def draw_bar_chart(categories, expenses):
+    positions = range(1, len(categories) + 1)
+    plt.barh(positions, expenses, align='center')
+    plt.yticks(positions, categories)
+    plt.ylabel('Expense Categories')
+    plt.xlabel('Amount Spent')
+    plt.title('Expenses By Category')
+    plt.show()
+
+
 if __name__ == '__main__':
-    enhanced_projectiles()
+    visualize_expenses()
