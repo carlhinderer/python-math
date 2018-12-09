@@ -157,5 +157,30 @@ def draw_bar_chart(categories, expenses):
     plt.show()
 
 
+# 2-5 Fibonacci Sequence and Golden Ratio
+#
+# The ratio of successive terms in the Fibonacci sequence approaches the golden ratio.  Graph the
+#   ratios to visualize the relationship.
+
+def graph_golden_ratio():
+    ratios = compute_ratios()
+    graph_ratios(ratios)
+
+
+def compute_ratios():
+    ratios = []
+    f1 = 1
+    f2 = 1
+    for i in range(100):
+        f1, f2 = f2, f1 + f2
+        ratios.append(f2 / f1)
+    return ratios
+
+
+def graph_ratios(ratios):
+    plt.plot(ratios)
+    plt.show()
+
+
 if __name__ == '__main__':
-    visualize_expenses()
+    graph_golden_ratio()
