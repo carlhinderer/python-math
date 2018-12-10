@@ -67,6 +67,83 @@ CHAPTER 3 - DESCRIPTIVE STATISTICS
 
 
 
+- Creating a Frequency Table
+
+    from collections import Counter
+
+    # Sorted by frequency
+    def frequency_table(numbers):
+        table = Counter(numbers)
+        print('Number\tFrequency')
+        for number in table.most_common():
+            print('{0}\t{1}'.format(number[o], number[1]))
+
+    # Sorted by numbers
+    def frequency_table(numbers):
+        table = Counter(numbers)
+        numbers_freq = table.most_common()
+        numbers_freq.sort()
+
+        print('Number\tFrequency')
+        for number in numbers_freq:
+            print('{0}\t{1}'.format(number[0], number[1]))
+
+
+
+- Find the Range
+
+    def find_range(numbers):
+        return max(numbers) - min(numbers)
+
+
+
+- Finding Variance and Standard Deviation
+
+    # Find distances from the mean for each point
+    def find_differences(numbers):
+        mean = calculate_mean(numbers)
+        return [num-mean for num in numbers]
+
+    # Calculate variance
+    def calculate_variance(numbers):
+        diff = find_differences(numbers)
+        squared_diff = [num**2 for num in diff]
+        return sum(squared_diff) / len(numbers)
+
+    # Calculate standard deviation
+    def calculate_standard_deviation(numbers):
+        return calculate_variance(numbers) ** 0.5
+
+
+
+- Finding the Correlation Coefficient
+
+    def find_correlation(x, y):
+        n = len(x)
+
+        prod = []
+        for xi, yi in zip(x, y):
+            prod.append(xi * yi)
+
+        sum_x = sum(x)
+        squared_sum_x = sum_x**2
+        sum_y = sum(y)
+        squared_sum_y = sum_y**2
+        sum_prod = sum(prod)
+
+        x_square = [xi**2 for xi in x]
+        x_square_sum = sum(x_square)
+        y_square = [yi**2 for yi in y]
+        y_square_sum = sum(y_square)
+
+        numerator = (n * sum_prod) - (sum_x * sum_y)
+        denom_term_1 = (n * x_square_sum) - squared_sum_x
+        denom_term_2 = (n * y_square_sum) - squared_sum_y
+        denominator = (denom_term_1 * denom_term_2) ** 0.5
+        return numerator / denominator
+
+
+
 - The new 'statistics' standard library package (3.4+)
 
     import statistics
