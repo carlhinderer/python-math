@@ -1,0 +1,87 @@
+-------------------------------------------------
+CHAPTER 4 - SYMPY
+-------------------------------------------------
+
+- Creating Symbols
+
+    >>> from sympy import Symbol
+
+    >>> x = Symbol('x')
+    >>> x
+    x
+
+    >>> x + x + 1
+    2*x + 1
+
+    >>> x = Symbol('x')
+    >>> y = Symbol('y')
+    >>> z = Symbol('z')
+
+    >>> from sympy import symbols
+    >>> x,y,z = symbols('x,y,z')
+
+
+
+- Basic Symbol Operations
+
+    >>> from sympy import Symbol
+    >>> x = Symbol('x')
+    >>> y = Symbol('y')
+    >>> z = Symbol('z')
+
+    # Expression automatically simplified
+    >>> s = x*y + x*y
+    >>> s
+    2*x*y
+
+    # Expression automatically simplified
+    >>> p = x*(x + x)
+    >>> p
+    2*x**2
+
+    # Note that Python only simplifies the most basic of expressions
+    >>> p = (x+2)*(x+3)
+    >>> p
+    (x+2)*(x+3)
+
+
+
+- Factoring and Expanding Expressions
+
+    >>> from sympy import Symbol, factor, expand
+    >>> x = Symbol('x')
+    >>> y = Symbol('y')
+
+    # Factor an expression
+    >>> expr = x**2 - y**2
+    >>> factor(expr)
+    (x-y)*(x+y)
+
+    # Expand an expression
+    >>> factors = factor(expr)
+    >>> expand(factors)
+    x**2 - y**2
+
+
+    # Factor a cube
+    >>> expr = x**3 + 3*x**2*y + 3*x*y**2 + y**3
+    >>> factors = factor(expr)
+    >>> factors
+    (x+y)**3
+
+    >>> expand(factors)
+    x**3 + 3*x**2*y + 3*x*y**2 + y**3
+
+
+    # If expression cannot be simplified, it is returned unchanged
+    >>> expr = x + y + x*y
+    >>> factor(expr)
+    x + y + x*y
+
+
+
+- Pretty-Printing Exponential Expressions
+
+    >>> from sympy import pprint
+    >>> pprint(expr)
+    (Expression with exponents superscripted and terms in order)
