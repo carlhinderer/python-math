@@ -151,3 +151,44 @@ CHAPTER 3 - DESCRIPTIVE STATISTICS
     numbers = [1, 2, 5, 7, 4, 9]
     statistics.mean(numbers)
     statistics.median(numbers)
+    statistics.mode(numbers)
+
+    statistics.pstdev(numbers)       # Population standard deviation of data.
+    statistics.pvariance()           # Population variance of data.
+    statistics.stdev()               # Sample standard deviation of data.
+    statistics.variance()            # Sample variance of data.
+
+
+
+- Creating Scatter Plots
+
+    import matplotlib.pyplot as plt
+
+    x = [1, 2, 3, 4]
+    y = [2, 4, 6, 8]
+    plt.scatter(x, y)
+    plt.show()
+
+
+
+- Example - Importing Data From CSV
+
+    import csv
+    import matplotlib.pyplot as plt
+
+    def scatter_plot(x, y):
+        plt.scatter(x, y)
+        plt.xlabel('Number')
+        plt.ylabel('Square')
+        plt.show()
+
+    def read_csv(filename):
+        numbers = []
+        squared = []
+        with open(filename) as f:
+            reader = csv.reader(f)
+            next(reader)
+            for row in reader:
+                numbers.append(int(row[0]))
+                squared.append(int(row[1]))
+            return numbers, squared
