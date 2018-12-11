@@ -88,5 +88,44 @@ def calculate_percentile(numbers, percentile):
         return (1 - f) * numbers[k] + f * numbers[k + 1]
 
 
+# 3-5: Frequency Table
+#
+# Read in a list of numbers from a file.  Then, ask the user how many classes
+#   they want the data in.  Split the data into the number of classes and display
+#   it in a frequency table.
+
+def frequency_table():
+    numbers = load_numbers()
+    num_classes = get_classes_from_user()
+    ft = generate_frequency_table(numbers, num_classes)
+    print_frequency_table(ft)
+
+
+def get_classes_from_user():
+    num_classes = int(input('How many classes?: '))
+    return num_classes
+
+
+def generate_frequency_table(numbers, num_classes):
+    table = []
+    interval_start = float(min(numbers))
+    interval = (max(numbers) - min(numbers)) / num_classes
+    interval_end = interval_start + interval
+    for c in range(num_classes):
+        count = 0
+        for num in numbers:
+            if num >= interval_start and num <= interval_end:
+                count += 1
+        table.append((interval_start, interval_end, count))
+        interval_start, interval_end = interval_end, interval_end + interval
+    return table
+
+
+def print_frequency_table(table):
+    print('Grade\tFrequency')
+    for category in table:
+        print('%s-%s\t%s' % (category[0], category[1], category[2]))
+
+
 if __name__ == '__main__':
-    print_percentile()
+    frequency_table()
