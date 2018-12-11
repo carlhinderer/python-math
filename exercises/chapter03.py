@@ -54,5 +54,39 @@ def yearly_differences(populations):
     return differences
 
 
+# 3-4: Percentile Calculation
+#
+# Write a program that takes a list of numbers in a file as input and asks for a
+#   percentile, then returns the item from the list at that percentile.
+
+TEST_SCORES_FILE = 'exercises/data/testscores.txt'
+
+
+def print_percentile():
+    numbers = load_numbers()
+    percentile = get_percentile_from_user()
+    percentile_value = calculate_percentile(numbers, percentile)
+    print('The value at %s percentile is %s' % (percentile, percentile_value))
+
+
+def load_numbers():
+    return [int(line.strip()) for line in open(TEST_SCORES_FILE)]
+
+
+def get_percentile_from_user():
+    percentile = int(input('What percentile value?: '))
+    return percentile
+
+
+def calculate_percentile(numbers, percentile):
+    i = (len(numbers) * percentile) / 100 + 0.5
+    if i.is_integer():
+        return numbers[int(i)]
+    else:
+        k = int(i)
+        f = i - k
+        return (1 - f) * numbers[k] + f * numbers[k + 1]
+
+
 if __name__ == '__main__':
-    world_population()
+    print_percentile()
