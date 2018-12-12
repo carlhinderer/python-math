@@ -85,3 +85,70 @@ CHAPTER 4 - SYMPY
     >>> from sympy import pprint
     >>> pprint(expr)
     (Expression with exponents superscripted and terms in order)
+
+
+
+- Printing a Series
+
+    Up to a number n, print the series:
+
+      x + x**2 + x**3 + ... + x**n
+          ----   ----         ----
+            2      3            n
+
+
+    from sympy import Symbol, pprint, init_printing
+
+    def print_series(n):
+        init_printing(order='rev-lex')
+        x = Symbol('x')
+        series = x
+        for i in range(2, n+1):
+            series = series + (x**i)/i
+        pprint(series)
+
+
+
+- Substituting in Values
+
+    # Substituting values into variables
+    >>> x = Symbol('x')
+    >>> y = Symbol('y')
+    >>> expr = x*x + x*y + x*y + y*y
+    >>> result = expr.subs({x:1, y:2})
+    >>> result
+    9
+
+    # Express symbol in terms of another symbol
+    >>> from sympy import simplify
+    >>> expr_subs = expr.subs({x:1-y})
+    >>> expr_subs
+    y**2 + 2*y*(-y+1) + (-y+1)**2
+
+    >>> simplify(expr_subs)
+    1
+
+
+
+- Converting Strings to Mathematical Expressions
+
+    >>> from sympy import sympify
+    >>> expr = 'x**2 + 3*x + x**3 + 2*x'
+    >>> expr = sympfiy(expr)
+
+
+
+- Handling sympify() Errors
+
+    >>> from sympy import sympify
+    >>> from sympy.core.sympify import SympifyError
+    >>> expr = 'x**2 + 3*x + x**3 + 2x'
+
+    >>> try:
+            expr = sympify(expr)
+        except SympifyError:
+            print('Invalid input')
+
+
+
+- 
