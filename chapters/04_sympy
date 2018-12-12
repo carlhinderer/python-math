@@ -151,4 +151,109 @@ CHAPTER 4 - SYMPY
 
 
 
-- 
+- Example - Product of 2 Expressions
+
+    from sympy import expand, sympify
+    from sympy.core.sympify import SympifyError
+
+
+    def product(expr1, expr2):
+        prod = expand(expr1*expr2)
+        print(prod)
+
+
+    if __name__ == '__main__':
+        expr1 = input('Enter the first expression: ')
+        expr2 = input('Enter the second expression: ')
+
+        try:
+            expr1 = sympify(expr1)
+            expr2 = sympify(expr2)
+        except SympifyError:
+            print('Invalid input')
+        else:
+            product(expr1, expr2)
+
+
+
+- Solving Equations
+
+    # Sets equation to zero and solves for variable
+    >>> from sympy import Symbol, solve
+    >>> x = Symbol('x')
+
+    >>> expr = x - 5 - 7
+    >>> solve(expr)
+    [12]
+
+
+
+- Solving Quadratic Equations
+
+    # 2 Real Roots
+    >>> x = Symbol('x
+    >>> expr = x**2 + 5*x + 4
+    >>> solve(expr)
+    [-4, -1]
+
+    >>> solve(expr, dict=True)
+    [{x: -4}, {x: -1}]
+
+
+    # 2 Complex Roots
+    >>> expr = x**2 + x + 1
+    >>> solve(expr, dict=True)
+    [{x: -1/2 - sqrt(3)*I/2}, {x: -1/2 + sqrt(3)*I/2}]
+
+
+
+- Solving For One Variable In Terms of Others
+
+    >>> x = Symbol('x')
+    >>> a = Symbol('a')
+    >>> b = Symbol('b')
+    >>> c = Symbol('c')
+
+    >>> expr = a*x*x + b*x + c
+    >>> solve(expr, x, dict=True)
+    [{x: (-b + sqrt(-4*a*c + b**2))/(2*a)}, {x: -(b + sqrt(-4*a*c + b**2))/(2*a)}]
+
+
+
+- Example - Distance Traveled At Constant Acceleration
+
+    The distance traveled by a body moving with
+      a = constant acceleration
+      u = initial velocity
+      t = time
+
+    is given by
+      s = ut + (1/2)*(a)*(t**2)
+
+
+    >>> from sympy import Symbol, solve, pprint
+    >>> s = Symbol('s')
+    >>> u = Symbol('u')
+    >>> t = Symbol('t')
+    >>> a = Symbol('a')
+
+    >>> expr = u*t + (1/2)*a*t*t - s
+    >>> t_expr = solve(expr, t, dict=True)
+    >>> pprint(t_expr)
+
+
+
+- Solving a System of Linear Equations
+
+    We want to solve the system of equations:
+      2x + 3y = 6
+      3x + 2y = 12
+
+
+    >>> x = Symbol('x')
+    >>> y = Symbol('y')
+    >>> expr1 = 2*x + 3*y - 6
+    >>> expr2 = 3*x +2*y - 12
+
+    >>> solve((expr1, expr2), dict=True)
+    [{y: -6/5, x: 24/5}]
