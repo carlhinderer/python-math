@@ -257,3 +257,50 @@ CHAPTER 4 - SYMPY
 
     >>> solve((expr1, expr2), dict=True)
     [{y: -6/5, x: 24/5}]
+
+
+
+- Plotting a Linear Graph Using sympy
+
+    # Plot a linear function
+    >>> from sympy.plotting import plot
+    >>> from sympy import Symbol
+    >>> x = Symbol('x')
+    >>> plot(2*x + 3)
+
+    # Plot with domain (-5,5)
+    >>> plot((2*x + 3), (x, -5, 5))
+
+    # Specify more options
+    >>> plot((2*x + 3), (x, -5, 5), title='A Line', xlabel='x', ylabel='2x+3')
+
+
+
+- Example - Graph a User-Inputted Function
+
+    def graph_user_function():
+        f = get_function_from_user()
+        graph_function(f)
+
+    def get_function_from_user():
+        expr = input('Enter an expression: ')
+        expr = sympify(expr)
+        y = Symbol('y')
+        solutions = solve(expr, y)
+        return solutions[0]
+
+    def graph_function(f):
+        plot(f)
+
+
+
+- Plotting Multiple Functions
+
+    >>> from sympy.plotting import plot
+    >>> from sympy import Symbol
+    >>> x = Symbol('x')
+
+    >>> p = plot(2*x+3, 3*x+1, legend=True, show=False)
+    >>> p[0].line_color = 'b'
+    >>> p[1].line_color = 'r'
+    >>> p.show()
