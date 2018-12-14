@@ -1,8 +1,7 @@
 # Chapter 4 Exercises
 
-from sympy import Symbol, pprint, init_printing, sympify, solve
+from sympy import Symbol, symbols, pprint, init_printing, sympify, solve, summation
 from sympy.plotting import plot
-import pdb
 
 # 4-2 Graphical Equation Solver
 #
@@ -42,5 +41,28 @@ def print_solution(f1, f2):
     print('Solution: (x: %s, y: %s)' % (x, y))
 
 
+# 4-3 Series Summation
+#
+# Write a program that takes an expression for the nth term in a series and a
+#   number of terms.  Print the summation of the sequence.
+
+def series_summation():
+    nth_term, num_terms = get_series_and_terms()
+    print_summation(nth_term, num_terms)
+
+
+def get_series_and_terms():
+    nth_term = input('Enter the expression for the nth term in the series: ')
+    num_terms = int(input('Enter the number of terms: '))
+    return nth_term, num_terms
+
+
+def print_summation(nth_term, num_terms):
+    a, d, n = symbols('a,d,n')
+    nth_term = sympify(nth_term)
+    s = summation(nth_term, (n, 1, num_terms))
+    pprint(s)
+
+
 if __name__ == '__main__':
-    graphical_equation_solver()
+    series_summation()
