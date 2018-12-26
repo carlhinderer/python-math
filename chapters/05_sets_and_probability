@@ -117,7 +117,7 @@ CHAPTER 5 - SETS AND PROBABILITY
 - Example - Applying a Formula to Multiple Sets of Variables
 
     The time period of a pendulum T (the amount of time it takes the pendulum to
-      complete one full swing) is given by the formual
+      complete one full swing) is given by the formula
 
       T = 2*pi*sqrt(L/g)
 
@@ -136,3 +136,183 @@ CHAPTER 5 - SETS AND PROBABILITY
       >>> for l in L:
               t = time_period(1/100)
               print('Length: {0} cm, Time Period: {1:.3f} s'.format(float(l), float(t)))
+
+
+
+- Probability Definitions
+
+    - The 'experiment' is the test we want to perform.  A single run of the experiment
+        is callled a 'trial'.
+
+    - The 'sample space' is the set of all possible outcomes from the trial.
+        Sample space of die roll: [1, 2, 3, 4, 5, 6]
+
+    - An 'event' is a set of outcomes we want to calculate the probability of.  The 
+        events form a subset of the sample space.
+
+
+    - If there is a uniform distribution (each outcome in the sample sapce is equally
+        likely to occur), then the probability is given by
+
+          P(E) = n(E) / n(S)
+
+             with n(E) = cardinality of set of events
+                  n(S) = cardinality of the sample space
+
+
+
+- Example - Finding the Probability of Rolling a Prime Number With 20-Sided Die
+
+    from sympy import FiniteSet
+
+    def probability(space, event):
+        return len(event) / len(space)
+
+    def check_prime(number):
+        if number != 1:
+            for factor in range(2, number):
+                if number % factor == 0:
+                    return False
+        else:
+            return False
+        return True
+
+    if __name__ == '__main__':
+        space = FiniteSet(*range(1, 21))
+        primes = []
+        for num in space:
+            if check_prime(num):
+                primes.append(num)
+        event = FiniteSet(*primes)
+        p = probability(space, event)
+
+        print('Sample space: {0}'.format(space))
+        print('Event: {0}'.format(event))
+        print('Probability of rolling a prime: {0:.5f}'.format(p))
+
+
+
+- Probability of Event A or Event B
+
+    We're interested in 2 possible events, and we want to find the probability of either one
+      happening during a die roll.
+
+    Let's call the events:
+      A = number rolled is prime
+      B = number is odd
+
+
+    >>> from sympy import FiniteSet
+    >>> s = FiniteSet(1, 2, 3, 4, 5, 6)
+    >>> a = FiniteSet(2, 3, 5)
+    >>> b = FiniteSet(1, 3, 5)
+    >>> e = a.union(b)
+    >>> len(e) / len(s)
+    0.666666666666667
+
+
+
+- Probability of Event A and Event B
+
+    Now, we want to calculate the probability that both events happening during a die roll.
+
+    >>> e.intersect(b)
+    >>> len(e) / len(s)
+    0.333333333333333
+
+
+
+- Generating Random Numbers
+
+    # Generate a random die roll
+    >>> import random
+    >>> random.randint(1, 6)
+    4
+
+
+
+- Example - Is the Target Score Possible?
+
+    from sympy import FiniteSet
+    import random
+
+    DIE_SIDES = FiniteSet(1, 2, 3, 4, 5, 6)
+
+    def find_prob(target_score, max_rolls):
+        s = sample_space(max_rolls)
+        e = event_set(s, max_rolls)
+        return len(e) / len(s)
+
+    def sample_space(max_rolls):
+        return DIE_SIDES**max_rolls
+
+    def event_set(sample_space, max_rolls):
+        if max_rolls > 1:
+            success_rolls = []
+            for elem in s:
+                if sum(elem) >= target_score:
+                    success_rolls.append(elem)
+        else:
+            if target_score > 6:
+                success_rolls = []
+            else:
+                success_rolls = []
+                for roll in DIE_SIDES:
+                    if roll >= target_score:
+                        success_rolls.append(roll)
+        return FiniteSet(*success_rolls)
+
+
+    if __name__ == '__main__':
+        target_score = int(input('Enter the target score: '))
+        max_rolls = int(input('Enter the maximum number of rolls allowed: '))
+        p = find_prob(target_score, max_rolls)
+        print('Probability: {0:.5f}'.format(p))
+
+
+
+- Nonuniform Random Numbers
+
+    Let's say we have an unfair coin that comes up heads 2/3 of the time.  
+
+    import random
+
+    # 0 -> Heads, 1 -> Tails
+    def toss():
+        if random.random() < 2/3:
+            return 0
+        else:
+            return 1
+
+
+
+- Example - Nonuniform Events
+
+    Now, let's say we have an ATM that randomly dispenses bills.  The probability of getting 
+      each bill is:
+
+      1/6 probability of getting $5
+      1/6 probability of getting $10
+      1/3 probability of getting $20
+      1/3 probability of getting $50
+
+
+    import random
+
+    def get_index(probability):
+        c_probability = 0
+        sum_probability = []
+        for p in probability:
+            c_probability += p
+            sum_probability.append(c_probability)
+        r = random.random()
+        for index, sp in enumerate(sum_probability):
+            if r <= sp:
+                return index
+        return len(probability)-1
+
+    def dispense():
+        dollar_bills = [5, 10, 20, 50]
+        probability = [1/6, 1/6, 1/3, 1/3]
+        bill_index = get_index(probability)
+        return dollar_bills[bill_index]
