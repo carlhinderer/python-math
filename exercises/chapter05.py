@@ -1,6 +1,7 @@
 # Chapter 5 Exercises
 
 import random
+import math
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn2
 from sympy import FiniteSet
@@ -87,7 +88,7 @@ class Card:
         self.rank = rank
 
     def __str__(self):
-        return '%s %s' % (self.suit, self.rank)
+        return '%s of %s' % (self.rank, self.suit)
 
 
 class Deck:
@@ -114,8 +115,50 @@ def shuffled_deck():
     deck.show()
 
 
+# 5-5 Estimating the Area of a Circle
+#
+# The area of a circle can be estimated by throwing darts at a dartboard that is a square
+#   with a circle inscribed.  Write a program that takes in a user-defined radius, and
+#   throws (1000, 10000, 100000) darts to estimate the area of a circle.
+
+
+DART_COUNTS = [1000, 10000, 100000]
+
+
+def estimate_circle_area():
+    radius = float(input('Enter the radius of the circle: '))
+    print('Radius:', radius)
+    for count in DART_COUNTS:
+        estimate_area(radius, count)
+
+
+def estimate_area(radius, dart_count):
+    actual_area = math.pi * radius**2
+    hits = 0
+    for dart in range(dart_count):
+        if throw_dart(radius):
+            hits += 1
+    estimated_area = (hits / dart_count) * (2 * radius)**2
+    print('Area: %s, Estimated (%s darts): %s' % (actual_area, dart_count, estimated_area))
+
+
+def throw_dart(radius):
+    x, y = random_point(radius)
+    distance_to_center = math.sqrt((radius - x)**2 + (radius - y)**2)
+    return distance_to_center <= radius
+
+
+def random_point(radius):
+    return random_coord(radius), random_coord(radius)
+
+
+def random_coord(radius):
+    return random.uniform(0, 2 * radius)
+
+
 if __name__ == '__main__':
     # draw_venn_diagram()
     # law_of_large_numbers()
     # coin_game()
-    shuffled_deck()
+    # shuffled_deck()
+    estimate_circle_area()
