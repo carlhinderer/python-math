@@ -55,6 +55,67 @@ def expected_value():
     return sum(DIE_ROLLS) / len(DIE_ROLLS)
 
 
+# 5-3 How Many Tosses Before You Run Out of Money?
+#
+# Let's consider a game in which a play wins $1 for heads and loses $1.50 for tails.
+#   The game is over when the player's balance equals zero.  Write a program to
+#   simulate this game.
+
+
+def coin_game():
+    current_amt = int(input('Enter your starting amount: '))
+    num_tries = 0
+    while current_amt > 0:
+        flip = random.randint(0, 1)
+        if flip == 0:
+            current_amt += 1
+            print('Heads! Current amount: ', current_amt)
+        else:
+            current_amt -= 1.5
+            print('Tails! Current amount: ', current_amt)
+        num_tries += 1
+    print('Game over :( Current amount: %s, Coin tosses: %s' % (current_amt, num_tries))
+
+
+# 5-4 Shuffling a Deck of Cards
+#
+# Create a deck of 52 cards and shuffle them.
+
+class Card:
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return '%s %s' % (self.suit, self.rank)
+
+
+class Deck:
+    SUITS = ['Hearts', 'Spades', 'Clubs', 'Diamonds']
+    RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+
+    def __init__(self):
+        self.cards = []
+        for suit in self.SUITS:
+            for rank in self.RANKS:
+                self.cards.append(Card(suit, rank))
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def show(self):
+        for card in self.cards:
+            print(card)
+
+
+def shuffled_deck():
+    deck = Deck()
+    deck.shuffle()
+    deck.show()
+
+
 if __name__ == '__main__':
     # draw_venn_diagram()
-    law_of_large_numbers()
+    # law_of_large_numbers()
+    # coin_game()
+    shuffled_deck()
