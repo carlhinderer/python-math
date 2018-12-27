@@ -134,7 +134,7 @@ CHAPTER 4 - SYMPY
 
     >>> from sympy import sympify
     >>> expr = 'x**2 + 3*x + x**3 + 2*x'
-    >>> expr = sympfiy(expr)
+    >>> expr = sympify(expr)
 
 
 

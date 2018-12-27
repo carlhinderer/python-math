@@ -1,12 +1,14 @@
 # Chapter 4 Exercises
 
-from sympy import Symbol, symbols, pprint, init_printing, sympify, solve, summation
+from sympy import (Symbol, symbols, pprint, init_printing, sympify, solve, summation,
+                   sin, Poly, solve_poly_inequality, solve_rational_inequalities,
+                   solve_univariate_inequality)
 from sympy.plotting import plot
+
 
 # 4-2 Graphical Equation Solver
 #
 # Get 2 expressions from the user and graph them.  Also, print their solution.
-
 
 def graphical_equation_solver():
     f1, f2 = get_functions_from_user()
@@ -64,5 +66,48 @@ def print_summation(nth_term, num_terms):
     pprint(s)
 
 
+# 4-4 Solving Inequalities
+#
+# In addition to solving equations, sympy can also solve single-variable inequalities.
+#   Write a function that will take any inequality, solve it, and return the result.
+
+
+def solve_inequality():
+    inequality = get_inequality_from_user()
+    x = Symbol('x')
+    if inequality.is_polynomial():
+        result = solve_polynomial_inequality(inequality, x)
+    elif inequality.is_rational_function():
+        result = solve_rational_inequality(inequality, x)
+    else:
+        result = solve_uni_inequality(inequality, x)
+    print(result)
+
+
+def solve_polynomial_inequality(inequality, symbol):
+    lhs = inequality.lhs
+    p = Poly(lhs, symbol)
+    rel = inequality.rel_op
+    return solve_poly_inequality(p, rel)
+
+
+def solve_rational_inequality(inequality, symbol):
+    lhs = inequality.lhs
+    numer, denom = lhs.as_numer_denom()
+    p1, p2 = Poly(numer), Poly(denom)
+    rel = inequality.rel_op
+    return solve_rational_inequalities([[((p1, p2), rel)]])
+
+
+def solve_uni_inequality(inequality, symbol):
+    return solve_univariate_inequality(inequality, symbol, relational=False)
+
+
+def get_inequality_from_user():
+    return sympify(input('Enter the inequality (in terms of x): '))
+
+
 if __name__ == '__main__':
-    series_summation()
+    # graphical_equation_solver()
+    # series_summation()
+    solve_inequality()
